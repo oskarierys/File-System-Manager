@@ -29,26 +29,29 @@ void listFilesInDirectory(const std::string& directoryPath)
 
 int main()
 {
+    DirectoryManager directoryManager;
     char userInput;
     std::string directoryPath = ".";
     std::string filePath;
+    std::string userPath;
     
     while(true)
     {
         std::cout << "         MENU of file library\n========================================\n";
         std::cout << "Choose an option!\n"
-                << "c - CREATE NEW FILE IN LIBRARY\n"
-                << "l - LIST ALL FILES IN LIBRARY\n"
-                << "r - READ FILE FROM LIBRARY\n"
-                << "m - MODIFY EXISTING FILE\n"
-                << "d - DELETE .txt FILE\n"
-                << "q - QUIT LIBRARY\n";
+                  << "c - CHANGE DIRECTORY\n"
+                  << "n - CREATE NEW FILE IN LIBRARY\n"
+                  << "l - LIST ALL FILES IN LIBRARY\n"
+                  << "r - READ FILE FROM LIBRARY\n"
+                  << "m - MODIFY EXISTING FILE\n"
+                  << "d - DELETE .txt FILE\n"
+                  << "q - QUIT LIBRARY\n";
         
         std::cout << "Enter your choice: ";
         std::cin >> userInput;
         userInput = tolower(userInput);
 
-        if (userInput == 'c')
+        if (userInput == 'n')
         {
             std::cout << "Enter name of the new file (with .txt extension!!!): ";
             std::cin >> filePath;
@@ -58,6 +61,12 @@ int main()
             {
                 std::cout << "File created!" << std::endl;
             }
+        }
+        else if (userInput == 'c')
+        {
+            std::cout << "Enter new directory path: ";
+            std::cin >> userPath;
+            directoryManager.changeDirectory(userPath);
         }
         else if (userInput == 'l')
         {
