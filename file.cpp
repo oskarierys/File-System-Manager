@@ -96,7 +96,7 @@ bool File::deleteFile()
     }
 }
 
-std::vector<std::string> File::listFilesInDirectory(const std::string& directoryPath)
+std::vector<std::string> DirectoryManager::listFilesInDirectory(const std::string& directoryPath)
 {
     std::vector<std::string> files;
 

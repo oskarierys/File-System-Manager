@@ -8,7 +8,7 @@
 
 void listFilesInDirectory(const std::string& directoryPath)
 {
-    std::vector<std::string> files = File::listFilesInDirectory(directoryPath);
+    std::vector<std::string> files = DirectoryManager::listFilesInDirectory(directoryPath);
 
     if (!files.empty())
     {

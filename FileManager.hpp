@@ -18,7 +18,6 @@ public:
     bool deleteFile();
 
     std::string readFile();
-    static std::vector<std::string> listFilesInDirectory(const std::string& directoryPath);
 
     void openInEditor();
 };
