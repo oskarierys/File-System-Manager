@@ -1,0 +1,149 @@
+#include <iostream>
+#include "FileManager.hpp"
+#include "DirectoryManager.hpp"
+#include <cctype>
+#include <string>
+#include <chrono>
+#include <thread>
+
+void listFilesInDirectory(const std::string& directoryPath)
+{
+    std::vector<std::string> files = File::listFilesInDirectory(directoryPath);
+
+    if (!files.empty())
+    {
+        std::cout << "Files in library:" << std::endl;
+        for (const auto& file : files)
+        {
+            if (file.size() >= 4 && file.substr(file.size() - 4) == ".txt")
+            {
+                std::cout << file << std::endl;
+            }
+        }
+    }
+    else
+    {
+        std::cerr << "No files in library!" << std::endl;
+    }
+}
+
+int main()
+{
+    char userInput;
+    std::string directoryPath = ".";
+    std::string filePath;
+    
+    while(true)
+    {
+        std::cout << "         MENU of file library\n========================================\n";
+        std::cout << "Choose an option!\n"
+                << "c - CREATE NEW FILE IN LIBRARY\n"
+                << "l - LIST ALL FILES IN LIBRARY\n"
+                << "r - READ FILE FROM LIBRARY\n"
+                << "m - MODIFY EXISTING FILE\n"
+                << "d - DELETE .txt FILE\n"
+                << "q - QUIT LIBRARY\n";
+        
+        std::cout << "Enter your choice: ";
+        std::cin >> userInput;
+        userInput = tolower(userInput);
+
+        if (userInput == 'c')
+        {
+            std::cout << "Enter name of the new file (with .txt extension!!!): ";
+            std::cin >> filePath;
+            File file(filePath);
+
+            if (file.createFile())
+            {
+                std::cout << "File created!" << std::endl;
+            }
+        }
+        else if (userInput == 'l')
+        {
+            listFilesInDirectory(directoryPath);
+        }
+        else if (userInput == 'r')
+        {
+            std::cout << "Enter name of file you want to read (with .txt extension!!!): ";
+            std::cin >> filePath;
+            std::cout << std::endl;
+        
+            File file(filePath);
+
+            std::string content = file.readFile();
+            if (!content.empty())
+            {
+                std::cout << "Content of file: " << filePath << " is: " << std::endl;
+                std::cout << content << std::endl;
+            }
+            else
+            {
+                std::cerr << "File is empty!" << std::endl;
+            }
+        }
+        else if (userInput == 'm')
+        {
+            std::cout << "Enter name of file you want to modify (with .txt extension!!!): ";
+            std::cin >> filePath;
+
+            File file(filePath);
+
+            std::string existingContent = file.readFile();
+            if (!existingContent.empty())
+            {
+                std::cout << "Enter the text you want to append to the file: ";
+                std::cin.ignore();
+                std::string newContent;
+                std::getline(std::cin, newContent);
+
+                if (file.writeFile(newContent))
+                {
+                    std::cout << "Text successfully appended to " << filePath << "!" << std::endl;
+                }
+                else
+                {
+                    std::cerr << "Failed to write to file!" << std::endl;
+                }
+            }
+            else
+            {
+                std::cerr << "File not found or empty! Try again!" << std::endl;
+            }
+        }
+        else if (userInput == 'd')
+        {
+            std::cout << "Enter name of file to delete (with .txt extension!!!): ";
+            std::cin >> filePath;
+
+            if (filePath.size() >= 4 && filePath.substr(filePath.size() - 4) != ".txt")
+            {
+                std::cerr << "Error: Only .txt files can be deleted!" << std::endl;
+                continue;
+            }
+
+            File file(filePath);
+            if (file.deleteFile())
+            {
+                std::cout << "File deleted!" << std::endl;
+            }
+            else
+            {
+                std::cerr << "Failed to delete file!" << std::endl;
+            }
+        }
+        else if (userInput == 'q')
+        {
+            std::cout << "Exiting library!";
+            break;
+        }
+        else
+        {
+            std::cerr << "Invalid user input! Please try again after 5 seconds!" << std::endl;
+            std::this_thread::sleep_for(std::chrono::seconds(5));
+            std::cout << std::endl;
+        }
+    }
+
+    return 0;
+}
