@@ -56,7 +56,7 @@ int main()
         {
             std::cout << "Enter name of the new file (with .txt extension!!!): ";
             std::cin >> filePath;
-            File file(filePath);
+            File file(directoryPath + "/" + filePath);
 
             if (file.createFile())
             {
@@ -84,7 +84,7 @@ int main()
             std::cin >> filePath;
             std::cout << std::endl;
         
-            File file(filePath);
+            File file(directoryPath + "/" + filePath);
 
             std::string content = file.readFile();
             if (!content.empty())
@@ -102,7 +102,7 @@ int main()
             std::cout << "Enter name of file you want to modify (with .txt extension!!!): ";
             std::cin >> filePath;
 
-            File file(filePath);
+            File file(directoryPath + "/" + filePath);
 
             std::string existingContent = file.readFile();
             if (!existingContent.empty())
@@ -137,7 +137,7 @@ int main()
                 continue;
             }
 
-            File file(filePath);
+            File file(directoryPath + "/" + filePath);
             if (file.deleteFile())
             {
                 std::cout << "File deleted!" << std::endl;
