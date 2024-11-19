@@ -31,7 +31,7 @@ int main()
 {
     DirectoryManager directoryManager;
     char userInput;
-    std::string directoryPath = ".";
+    std::string directoryPath = directoryManager.getCurrentDirectory();
     std::string filePath;
     std::string userPath;
     
