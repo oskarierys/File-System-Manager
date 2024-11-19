@@ -42,3 +42,8 @@ std::vector<std::string> DirectoryManager::listFilesInDirectory(const std::strin
     }
     return files;
 }
+
+bool DirectoryManager::fileExists(const std::string& fileName) const
+{
+    return std::filesystem::exists(m_currentDirectory + "/" + fileName);
+}

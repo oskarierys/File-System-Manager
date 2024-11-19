@@ -39,6 +39,7 @@ int main()
     {
         std::cout << "         MENU of file library\n========================================\n";
         std::cout << "Choose an option!\n"
+                  << "a - DISPLAY CURRENT DIRECTORY\n"
                   << "c - CHANGE DIRECTORY\n"
                   << "n - CREATE NEW FILE IN LIBRARY\n"
                   << "l - LIST ALL FILES IN LIBRARY\n"
@@ -62,11 +63,16 @@ int main()
                 std::cout << "File created!" << std::endl;
             }
         }
+        else if (userInput == 'a')
+        {
+            std::cout << "Current directory: " << directoryManager.getCurrentDirectory() << std::endl;
+        }
         else if (userInput == 'c')
         {
             std::cout << "Enter new directory path: ";
             std::cin >> userPath;
             directoryManager.changeDirectory(userPath);
+            directoryPath = directoryManager.getCurrentDirectory();
         }
         else if (userInput == 'l')
         {
