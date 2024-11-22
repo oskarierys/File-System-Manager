@@ -5,6 +5,7 @@
 #include <string>
 #include <chrono>
 #include <thread>
+#include <filesystem>
 
 void listFilesInDirectory(const std::string& directoryPath)
 {
@@ -29,7 +30,7 @@ void listFilesInDirectory(const std::string& directoryPath)
 
 int main()
 {
-    DirectoryManager directoryManager;
+    DirectoryManager directoryManager(std::filesystem::current_path().string());
     char userInput;
     std::string directoryPath = directoryManager.getCurrentDirectory();
     std::string filePath;
