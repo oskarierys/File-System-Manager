@@ -13,18 +13,23 @@ void listFilesInDirectory(const std::string& directoryPath)
 
     if (!files.empty())
     {
-        std::cout << "Files in library:" << std::endl;
+        std::cout << "Content of the current directory:" << std::endl;
         for (const auto& file : files)
         {
-            if (file.size() >= 4 && file.substr(file.size() - 4) == ".txt")
+            std::string fullPath = directoryPath + "/" + file;
+            if (std::filesystem::is_directory(fullPath))
             {
-                std::cout << file << std::endl;
+                std::cout << "[DIR] " << file << std::endl;
+            }
+            else if (file.size() >= 4 && file.substr(file.size() - 4) == ".txt")
+            {
+                std::cout << "[TXT] " << file << std::endl;
             }
         }
     }
     else
     {
-        std::cerr << "No files in library!" << std::endl;
+        std::cerr << "No files or directories in library!" << std::endl;
     }
 }
 

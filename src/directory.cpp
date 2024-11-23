@@ -30,10 +30,7 @@ std::vector<std::string> DirectoryManager::listFilesInDirectory(const std::strin
     {
         for (const auto& entry : std::filesystem::directory_iterator(directoryPath))
         {
-            if (entry.is_regular_file())
-            {
-                files.push_back(entry.path().filename().string());                    
-            }
+            files.push_back(entry.path().filename().string());                    
         }     
     }
     catch (const std::filesystem::filesystem_error& e)
