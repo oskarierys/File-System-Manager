@@ -49,6 +49,7 @@ int main()
                   << "c - CHANGE DIRECTORY\n"
                   << "n - CREATE NEW FILE IN LIBRARY\n"
                   << "l - LIST ALL FILES IN LIBRARY\n"
+                  << "t - DISPLAY TREE\n"
                   << "r - READ FILE FROM LIBRARY\n"
                   << "m - MODIFY EXISTING FILE\n"
                   << "d - DELETE .txt FILE\n"
@@ -83,6 +84,10 @@ int main()
         else if (userInput == 'l')
         {
             listFilesInDirectory(directoryPath);
+        }
+        else if (userInput == 't')
+        {
+            directoryManager.displayTree(directoryPath);
         }
         else if (userInput == 'r')
         {

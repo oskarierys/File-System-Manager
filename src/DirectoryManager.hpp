@@ -16,7 +16,8 @@ public:
     bool fileExists(const std::string& fileName) const;
 
     std::string getCurrentDirectory() const;
-        static std::vector<std::string> listFilesInDirectory(const std::string& directoryPath);
+    static std::vector<std::string> listFilesInDirectory(const std::string& directoryPath);
+    static void displayTree(const std::string& directoryPath, int indent = 0);
 };
 
 #endif

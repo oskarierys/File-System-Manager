@@ -44,3 +44,31 @@ bool DirectoryManager::fileExists(const std::string& fileName) const
 {
     return std::filesystem::exists(m_currentDirectory + "/" + fileName);
 }
+
+void DirectoryManager::displayTree(const std::string& directoryPath, int indent)
+{
+    try
+    {
+        for (const auto& entry : std::filesystem::directory_iterator(directoryPath))
+        {
+            for (int i = 0; i < indent; i++)
+            {
+                std::cout << " ";
+            }
+            std::cout << "|-- " << entry.path().filename().string() << std::endl;
+
+            if (entry.is_directory())
+            {
+                displayTree(entry.path().string(), indent + 1);
+            }
+        }
+    }
+    catch (const std::filesystem::filesystem_error& e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+}
+
+// file_iterator, kazde wywolanie listtuje pojedyncze
+// rozmiar plikow przy wypisaniu
+// tree - metoda directory - displayTree
