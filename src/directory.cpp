@@ -70,5 +70,3 @@ void DirectoryManager::displayTree(const std::string& directoryPath, int indent)
 }
 
 // file_iterator, kazde wywolanie listtuje pojedyncze
-// rozmiar plikow przy wypisaniu
-// tree - metoda directory - displayTree

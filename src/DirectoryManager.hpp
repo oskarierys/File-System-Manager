@@ -18,6 +18,7 @@ public:
     std::string getCurrentDirectory() const;
     static std::vector<std::string> listFilesInDirectory(const std::string& directoryPath);
     static void displayTree(const std::string& directoryPath, int indent = 0);
+    static std::uintmax_t calculateSize(const std::string& directoryPath);
 };
 
 #endif

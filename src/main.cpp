@@ -17,13 +17,17 @@ void listFilesInDirectory(const std::string& directoryPath)
         for (const auto& file : files)
         {
             std::string fullPath = directoryPath + "/" + file;
+            std::uintmax_t size = 0;
+
             if (std::filesystem::is_directory(fullPath))
             {
-                std::cout << "[DIR] " << file << std::endl;
+                size = DirectoryManager::calculateSize(fullPath);
+                std::cout << "[DIR] " << file << " | " << size << " bytes" << std::endl;
             }
             else if (file.size() >= 4 && file.substr(file.size() - 4) == ".txt")
             {
-                std::cout << "[TXT] " << file << std::endl;
+                size = std::filesystem::file_size(fullPath);
+                std::cout << "[TXT] " << file << " | " << size << " bytes" << std::endl;
             }
         }
     }
@@ -31,6 +35,28 @@ void listFilesInDirectory(const std::string& directoryPath)
     {
         std::cerr << "No files or directories in library!" << std::endl;
     }
+}
+
+std::uintmax_t DirectoryManager::calculateSize(const std::string& directoryPath)
+{
+    std::uintmax_t size = 0;
+
+    try
+    {
+        for (const auto& entry : std::filesystem::recursive_directory_iterator(directoryPath))
+        {
+            if (entry.is_regular_file())
+            {
+                size += entry.file_size();
+            }
+        }
+    }
+    catch (const std::filesystem::filesystem_error& e)
+    {
+        std::cerr << "Error calculating size: " << e.what() << std::endl;
+    }
+    
+    return size;
 }
 
 int main()
