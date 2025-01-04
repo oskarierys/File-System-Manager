@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/User/Desktop/CPP_PROJECT",
-      "program": "c:/Users/User/Desktop/CPP_PROJECT/build/Debug/outDebug",
+      "cwd": "c:/Users/User/Desktop/CPP_PROJECT/src",
+      "program": "c:/Users/User/Desktop/CPP_PROJECT/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

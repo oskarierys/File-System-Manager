@@ -69,4 +69,4 @@ void DirectoryManager::displayTree(const std::string& directoryPath, int indent)
     }
 }
 
-// file_iterator, kazde wywolanie listtuje pojedyncze
+// file_iterator, kazde wywolanie listuje pojedyncze
