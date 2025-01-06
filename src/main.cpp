@@ -6,34 +6,52 @@
 #include <chrono>
 #include <thread>
 #include <filesystem>
+#include <ranges>
+#include <numeric>
 
 void listFilesInDirectory(const std::string& directoryPath)
 {
-    std::vector<std::string> files = DirectoryManager::listFilesInDirectory(directoryPath);
+    namespace fs = std::filesystem;
 
-    if (!files.empty())
+    try 
     {
-        std::cout << "Content of the current directory:" << std::endl;
-        for (const auto& file : files)
+        auto entries = fs::directory_iterator(directoryPath);
+
+        if (entries == fs::directory_iterator()) 
         {
-            std::string fullPath = directoryPath + "/" + file;
+            std::cerr << "No files or directories in library!" << std::endl;
+            return;
+        }
+
+        std::cout << "Content of the current directory:" << std::endl;
+
+        for (const auto& entry : entries | std::views::filter([](const fs::directory_entry& e) {
+                return e.is_regular_file() || e.is_directory();
+            })) 
+        {
+            const auto& fullPath = entry.path();
             std::uintmax_t size = 0;
 
-            if (std::filesystem::is_directory(fullPath))
+            if (entry.is_directory()) 
             {
-                size = DirectoryManager::calculateSize(fullPath);
-                std::cout << "[DIR] " << file << " | " << size << " bytes" << std::endl;
-            }
-            else if (file.size() >= 4 && file.substr(file.size() - 4) == ".txt")
+                size = std::accumulate(
+                    fs::directory_iterator(fullPath), fs::directory_iterator(),
+                    0ULL,
+                    [](std::uintmax_t total, const fs::directory_entry& e) {
+                        return total + (e.is_regular_file() ? fs::file_size(e) : 0);
+                    });
+                std::cout << "[DIR] " << fullPath.filename().string() << " | " << size << " bytes" << std::endl;
+            } 
+            else if (entry.is_regular_file() && fullPath.extension() == ".txt") 
             {
-                size = std::filesystem::file_size(fullPath);
-                std::cout << "[TXT] " << file << " | " << size << " bytes" << std::endl;
+                size = fs::file_size(fullPath);
+                std::cout << "[TXT] " << fullPath.filename().string() << " | " << size << " bytes" << std::endl;
             }
         }
-    }
-    else
+    } 
+    catch (const fs::filesystem_error& e) 
     {
-        std::cerr << "No files or directories in library!" << std::endl;
+        std::cerr << "Filesystem error: " << e.what() << std::endl;
     }
 }
 
