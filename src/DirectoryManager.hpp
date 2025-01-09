@@ -1,9 +1,16 @@
+/*
+ * Copyright (c) 2024 Oskar Kierys, Kacper Śliwa
+ */
+
 #ifndef DIRECTORY_MANAGER_HPP
 #define DIRECTORY_MANAGER_HPP
 
 #include <vector>
 #include <string>
 
+/**
+ * @brief Manages directory operations such as changing directories, listing files, and calculating directory size.
+ */
 class DirectoryManager
 {
 private:

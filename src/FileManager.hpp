@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 Oskar Kierys, Kacper Śliwa
+ */
+
 #ifndef FILE_MANAGER_HPP
 #define FILE_MANAGER_HPP
 
@@ -5,6 +9,9 @@
 #include <iostream>
 #include <vector>
 
+/**
+ * @brief Represents a file and provides operations to manipulate it.
+ */
 class File
 {
 private:

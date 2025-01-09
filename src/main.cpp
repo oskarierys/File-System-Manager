@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 Oskar Kierys, Kacper Śliwa
+ */
+
 #include <iostream>
 #include "FileManager.hpp"
 #include "DirectoryManager.hpp"
@@ -9,6 +13,15 @@
 #include <ranges>
 #include <numeric>
 
+/**
+ * @brief Lists the files and directories in the specified directory path.
+ * 
+ * This function iterates through the contents of the given directory path
+ * and prints the names of files and directories. It uses the C++17 filesystem
+ * library and C++20 ranges to filter and display the entries.
+ * 
+ * @param directoryPath The path of the directory to list the contents of.
+ */
 void listFilesInDirectory(const std::string& directoryPath)
 {
     namespace fs = std::filesystem;

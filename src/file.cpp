@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024 Oskar Kierys, Kacper Śliwa
+ */
+
 #include "FileManager.hpp"
 #include "DirectoryManager.hpp"
 #include <fstream>
@@ -10,7 +14,19 @@
 #include <unistd.h>
 #endif
 
+/**
+ * @brief Constructs a File object with the specified path.
+ * 
+ * @param path The path of the file.
+ */
+
 File::File(const std::string& path) : m_filePath(path) {};
+
+/**
+ * @brief Creates the file at the specified path.
+ * 
+ * @return true if the file was created successfully, false otherwise.
+ */
 
 bool File::createFile()
 {
@@ -29,6 +45,13 @@ bool File::createFile()
     }
 }
 
+/**
+ * @brief Writes content to the file.
+ * 
+ * @param content The content to write to the file.
+ * @return true if the content was written successfully, false otherwise.
+ */
+
 bool File::writeFile(const std::string& content)
 {
     std::ofstream file(m_filePath, std::ios::app);
@@ -45,6 +68,12 @@ bool File::writeFile(const std::string& content)
         return false;
     }
 }
+
+/**
+ * @brief Reads the content of the file.
+ * 
+ * @return The content of the file as a string.
+ */
 
 std::string File::readFile()
 {
@@ -67,6 +96,12 @@ std::string File::readFile()
     }
     return content;
 }
+
+/**
+ * @brief Deletes the file.
+ * 
+ * @return true if the file was deleted successfully, false otherwise.
+ */
 
 bool File::deleteFile()
 {
@@ -95,6 +130,10 @@ bool File::deleteFile()
         return false;
     }
 }
+
+/**
+ * @brief Opens the file in the default editor.
+ */
 
 void File::openInEditor() 
 {
