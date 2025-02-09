@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Oskar Kierys, Kacper Śliwa
+ * Copyright (c) 2024 Oskar Kierys
  */
 
 #include "DirectoryManager.hpp"
